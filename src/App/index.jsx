@@ -7,6 +7,9 @@ function formatter(value) {
   return moment.unix(value).format("YYYY-MM-DD HH:mm:SS");
 }
 
+/**
+ * file: https://github.com/xx7y7xx/gitlab-pipeline
+ */
 const App = () => {
   return (
     <div>
@@ -19,7 +22,7 @@ const App = () => {
             <Col span={23}>
               <Slider
                 disabled
-                range={!!pipeline.details.finished_at}
+                range
                 min={moment().unix() - 3600 * 6}
                 max={moment().unix()}
                 defaultValue={
@@ -28,7 +31,7 @@ const App = () => {
                         moment(pipeline.created_at).unix(),
                         moment(pipeline.details.finished_at).unix(),
                       ]
-                    : moment(pipeline.created_at).unix()
+                    : [moment(pipeline.created_at).unix(), moment().unix()]
                 }
                 tipFormatter={formatter}
               />
